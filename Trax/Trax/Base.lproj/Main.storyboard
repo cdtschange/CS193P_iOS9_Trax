@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Trax-->
@@ -37,6 +38,9 @@
                     <connections>
                         <outlet property="mapView" destination="E3L-uh-PXk" id="FAb-hk-NId"/>
                         <segue destination="fNm-Zq-fuR" kind="show" identifier="Show Image" id="olY-aj-zJ8"/>
+                        <segue destination="YCa-RO-l6h" kind="popoverPresentation" identifier="Edit Waypoint" popoverAnchorView="E3L-uh-PXk" id="aCG-Pb-CqC">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -105,6 +109,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZJ-qh-gHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="136"/>
+        </scene>
+        <!--Edit Waypoint View Controller-->
+        <scene sceneID="6C5-0Z-d1v">
+            <objects>
+                <viewController id="YCa-RO-l6h" customClass="EditWaypointViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9YV-QT-d6T"/>
+                        <viewControllerLayoutGuide type="bottom" id="PpE-O2-lcU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jkz-dI-gRF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nFZ-65-jl6">
+                                <rect key="frame" x="20" y="28" width="560" height="68"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EAI-rB-Gak">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-20-DYN">
+                                                <rect key="frame" x="0.0" y="0.0" width="88" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="URi-2g-4Sz">
+                                                <rect key="frame" x="96" y="0.0" width="464" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="IyP-qA-2u1"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WRf-qa-2N1">
+                                        <rect key="frame" x="0.0" y="38" width="560" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF1-RD-iQf">
+                                                <rect key="frame" x="0.0" y="0.0" width="88" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dNa-vp-vSV">
+                                                <rect key="frame" x="96" y="0.0" width="464" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="HF1-RD-iQf" firstAttribute="width" secondItem="mgh-20-DYN" secondAttribute="width" id="d8W-01-kBd"/>
+                                    <constraint firstItem="WRf-qa-2N1" firstAttribute="width" secondItem="mgh-20-DYN" secondAttribute="width" id="uVR-4X-2fQ"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="uVR-4X-2fQ"/>
+                                    </mask>
+                                </variation>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="PpE-O2-lcU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nFZ-65-jl6" secondAttribute="bottom" constant="8" symbolic="YES" id="2io-ri-BP8"/>
+                            <constraint firstItem="nFZ-65-jl6" firstAttribute="top" secondItem="9YV-QT-d6T" secondAttribute="bottom" constant="8" id="eE1-Lc-Xoe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nFZ-65-jl6" secondAttribute="trailing" id="yzO-vh-o9T"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="nFZ-65-jl6" secondAttribute="leading" id="zag-xa-2eh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="7a0-11-JDe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="vQh-Jv-031">
+                            <connections>
+                                <segue destination="3zI-YM-Wkg" kind="unwind" unwindAction="updatedUserWaypoint:" id="ghK-2A-cec"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="infoTextField" destination="dNa-vp-vSV" id="QPq-DJ-TwZ"/>
+                        <outlet property="nameTextField" destination="URi-2g-4Sz" id="EG7-LR-pzq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZTf-5n-H0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3zI-YM-Wkg" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1804" y="-541"/>
         </scene>
     </scenes>
 </document>

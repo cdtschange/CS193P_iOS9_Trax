@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class GPXViewController: UIViewController, MKMapViewDelegate {
+class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
 
     var gpxURL: NSURL? {
         didSet {
@@ -45,6 +45,9 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
             if waypoint.thumbnailURL != nil {
                 view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
             }
+            if waypoint is EditableWaypoint {
+                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            }
         }
         
         
@@ -76,10 +79,25 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.leftCalloutAccessoryView {
             performSegueWithIdentifier(Constants.ShowImageSegue, sender: view)
+        } else if control == view.rightCalloutAccessoryView  {
+            mapView.deselectAnnotation(view.annotation, animated: true)
+            performSegueWithIdentifier(Constants.EditUserWaypoint, sender: view)
         }
     }
     
     // MARK: Navigation
+    
+    // Unwind target (selects just-edited waypoint)
+    
+    @IBAction func updatedUserWaypoint(segue: UIStoryboardSegue) {
+        selectWaypoint((segue.sourceViewController.contentViewController as? EditWaypointViewController)?.waypointToEdit)
+    }
+    
+    private func selectWaypoint(waypoint: GPX.Waypoint?) {
+        if waypoint != nil {
+            mapView.selectAnnotation(waypoint!, animated: true)
+        }
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destination = segue.destinationViewController.contentViewController
@@ -91,18 +109,47 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
                 ivc.imageURL = waypoint?.imageURL
                 ivc.title = waypoint?.name
             }
+        } else if segue.identifier == Constants.EditUserWaypoint {
+            if let editableWaypoint = waypoint as? EditableWaypoint,
+                let ewvc = destination as? EditWaypointViewController {
+                if let ppc = ewvc.popoverPresentationController {
+                    ppc.sourceRect = annotationView!.frame
+                    ppc.delegate = self
+                }
+                ewvc.waypointToEdit = editableWaypoint
+            }
         }
-//        else if segue.identifier == Constants.EditUserWaypoint {
-//            if let editableWaypoint = waypoint as? EditableWaypoint,
-//                let ewvc = destination as? EditWaypointViewController {
-//                if let ppc = ewvc.popoverPresentationController {
-//                    ppc.sourceRect = annotationView!.frame
-//                    ppc.delegate = self
-//                }
-//                ewvc.waypointToEdit = editableWaypoint
-//            }
-//        }
     }
+    
+    // MARK: UIPopoverPresentationControllerDelegate
+    
+    // when popover is dismissed, selected the just-edited waypoint
+    // see also unwind target above (does the same thing for adapted UI)
+    
+    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+        selectWaypoint((popoverPresentationController.presentedViewController as? EditWaypointViewController)?.waypointToEdit)
+    }
+    // when adapting to full screen
+    // wrap the MVC in a navigation controller
+    // and install a blurring visual effect behind all the navigation controller draws
+    // autoresizingMask is "old style" constraints
+    
+    func presentationController(
+        controller: UIPresentationController,
+        viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle
+        ) -> UIViewController? {
+        if style == .FullScreen || style == .OverFullScreen {
+            let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+            let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+            visualEffectView.frame = navcon.view.bounds
+            visualEffectView.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+            navcon.view.insertSubview(visualEffectView, atIndex: 0)
+            return navcon
+        } else {
+            return nil
+        }
+    }
+    
     @IBAction func addWaypoint(sender: UILongPressGestureRecognizer) {
         if sender.state == .Began {
             let coordinate = mapView.convertPoint(sender.locationInView(mapView), toCoordinateFromView: mapView)
@@ -110,6 +157,16 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
             waypoint.name = "Dropped"
             mapView.addAnnotation(waypoint)
         }
+    }
+    // if we're horizontally compact
+    // then adapt by going to .OverFullScreen
+    // .OverFullScreen fills the whole screen, but lets underlying MVC show through
+    
+    func adaptivePresentationStyleForPresentationController(
+        controller: UIPresentationController,
+        traitCollection: UITraitCollection
+        ) -> UIModalPresentationStyle {
+        return traitCollection.horizontalSizeClass == .Compact ? .OverFullScreen : .None
     }
     
     // MARK: Constants
