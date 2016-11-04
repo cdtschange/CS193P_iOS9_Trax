@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="M4V-Sy-syH">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Trax-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="GPXViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,11 +29,71 @@
                             <constraint firstItem="E3L-uh-PXk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="tnc-FB-x5k"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Trax" id="uOV-Un-bfF"/>
                     <connections>
                         <outlet property="mapView" destination="E3L-uh-PXk" id="FAb-hk-NId"/>
+                        <segue destination="fNm-Zq-fuR" kind="show" identifier="Show Image" id="olY-aj-zJ8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="951" y="136"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="Wfb-G0-hDd">
+            <objects>
+                <viewController id="fNm-Zq-fuR" customClass="ImageViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M3p-dh-KHn"/>
+                        <viewControllerLayoutGuide type="bottom" id="UG8-73-2q8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uqH-Vi-d2x">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDk-C5-HiH">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="dgY-fc-xZq">
+                                <rect key="frame" x="281" y="282" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EDk-C5-HiH" firstAttribute="bottom" secondItem="UG8-73-2q8" secondAttribute="top" id="GQX-6d-5WA"/>
+                            <constraint firstItem="dgY-fc-xZq" firstAttribute="centerX" secondItem="uqH-Vi-d2x" secondAttribute="centerX" id="J46-Yp-jql"/>
+                            <constraint firstItem="EDk-C5-HiH" firstAttribute="leading" secondItem="uqH-Vi-d2x" secondAttribute="leading" id="On0-f6-Rih"/>
+                            <constraint firstItem="dgY-fc-xZq" firstAttribute="centerY" secondItem="uqH-Vi-d2x" secondAttribute="centerY" id="a3i-vZ-A8k"/>
+                            <constraint firstItem="EDk-C5-HiH" firstAttribute="top" secondItem="uqH-Vi-d2x" secondAttribute="top" id="lc9-2S-K8g"/>
+                            <constraint firstAttribute="trailing" secondItem="EDk-C5-HiH" secondAttribute="trailing" id="uW1-Pd-uZt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Fjz-4U-8Y5"/>
+                    <connections>
+                        <outlet property="scrollView" destination="EDk-C5-HiH" id="Dcc-7x-gjI"/>
+                        <outlet property="spinner" destination="dgY-fc-xZq" id="7bT-Bj-n2B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fnB-2C-VbJ" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1804" y="136"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="09E-Dl-Aej">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M4V-Sy-syH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1zM-HT-gZ1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rfc-Hl-MVc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vZJ-qh-gHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="136"/>
         </scene>

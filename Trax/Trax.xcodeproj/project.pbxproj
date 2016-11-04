@@ -14,6 +14,7 @@
 		27FE61F91DCC5C9F0040DDD6 /* GPXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FE61F81DCC5C9F0040DDD6 /* GPXViewController.swift */; };
 		27FE61FB1DCC5DA30040DDD6 /* GPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FE61FA1DCC5DA30040DDD6 /* GPX.swift */; };
 		27FE61FD1DCC5EB70040DDD6 /* MKGPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FE61FC1DCC5EB70040DDD6 /* MKGPX.swift */; };
+		27FE61FF1DCC62880040DDD6 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FE61FE1DCC62880040DDD6 /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		27FE61F81DCC5C9F0040DDD6 /* GPXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXViewController.swift; sourceTree = "<group>"; };
 		27FE61FA1DCC5DA30040DDD6 /* GPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPX.swift; sourceTree = "<group>"; };
 		27FE61FC1DCC5EB70040DDD6 /* MKGPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGPX.swift; sourceTree = "<group>"; };
+		27FE61FE1DCC62880040DDD6 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				27FE61FA1DCC5DA30040DDD6 /* GPX.swift */,
 				27FE61FC1DCC5EB70040DDD6 /* MKGPX.swift */,
 				27FE61F81DCC5C9F0040DDD6 /* GPXViewController.swift */,
+				27FE61FE1DCC62880040DDD6 /* ImageViewController.swift */,
 				27FE61E91DCC5C5A0040DDD6 /* Main.storyboard */,
 				27FE61F71DCC5C800040DDD6 /* Supporting Files */,
 			);
@@ -151,6 +154,7 @@
 			files = (
 				27FE61E61DCC5C5A0040DDD6 /* AppDelegate.swift in Sources */,
 				27FE61FD1DCC5EB70040DDD6 /* MKGPX.swift in Sources */,
+				27FE61FF1DCC62880040DDD6 /* ImageViewController.swift in Sources */,
 				27FE61F91DCC5C9F0040DDD6 /* GPXViewController.swift in Sources */,
 				27FE61FB1DCC5DA30040DDD6 /* GPX.swift in Sources */,
 			);

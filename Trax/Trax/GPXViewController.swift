@@ -72,6 +72,37 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.leftCalloutAccessoryView {
+            performSegueWithIdentifier(Constants.ShowImageSegue, sender: view)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destination = segue.destinationViewController.contentViewController
+        let annotationView = sender as? MKAnnotationView
+        let waypoint = annotationView?.annotation as? GPX.Waypoint
+        
+        if segue.identifier == Constants.ShowImageSegue {
+            if let ivc = destination as? ImageViewController {
+                ivc.imageURL = waypoint?.imageURL
+                ivc.title = waypoint?.name
+            }
+        }
+//        else if segue.identifier == Constants.EditUserWaypoint {
+//            if let editableWaypoint = waypoint as? EditableWaypoint,
+//                let ewvc = destination as? EditWaypointViewController {
+//                if let ppc = ewvc.popoverPresentationController {
+//                    ppc.sourceRect = annotationView!.frame
+//                    ppc.delegate = self
+//                }
+//                ewvc.waypointToEdit = editableWaypoint
+//            }
+//        }
+    }
+    
     // MARK: Constants
     
     private struct Constants {
@@ -79,5 +110,15 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
         static let AnnotationViewReuseIdentifier = "waypoint"
         static let ShowImageSegue = "Show Image"
         static let EditUserWaypoint = "Edit Waypoint"
+    }
+}
+
+extension UIViewController {
+    var contentViewController: UIViewController {
+        if let navcon = self as? UINavigationController {
+            return navcon.visibleViewController ?? navcon
+        } else {
+            return self
+        }
     }
 }
