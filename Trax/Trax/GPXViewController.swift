@@ -7,29 +7,40 @@
 //
 
 import UIKit
+import MapKit
 
-class GPXViewController: UIViewController {
+class GPXViewController: UIViewController, MKMapViewDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    var gpxURL: NSURL? {
+        didSet {
+            if let url = gpxURL {
+                GPX.parse(url) { gpx in
+                    if gpx != nil {
+                        self.addWayPoints(gpx!.waypoints)
+                    }
+                }
+            }
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    private func clearWaypoints() {
+        mapView?.removeAnnotations(mapView.annotations)
     }
-    */
+    private func addWayPoints(waypoints: [GPX.Waypoint]) {
+        mapView?.addAnnotations(waypoints)
+        mapView?.showAnnotations(waypoints, animated: true)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        gpxURL = NSURL(string: "http://cs193p.stanford.edu/Vacation.gpx")
+    }
+    
+    @IBOutlet weak var mapView: MKMapView! {
+        didSet {
+            mapView.mapType = .Satellite
+            mapView.delegate = self
+        }
+    }
 
 }
